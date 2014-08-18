@@ -42,23 +42,21 @@ namespace rolley
     void ObstacleAvoider::forward()
     {
         this->_robot.forward(20);
-        delay(2000);
-        this->_state = STOP;
     }
 
     void ObstacleAvoider::bump()
     {
         switch(this->_context.obstacle_direction) {
             case LEFT:
-                this->_robot.backward_meters(100, .15);
-                this->_robot.spin_degrees(RIGHT, 100, 30);
+                this->_robot.backward_meters(40, .15);
+                this->_robot.spin_degrees(RIGHT, 100, 60);
                 this->_state = GO;
             case RIGHT:
-                this->_robot.backward_meters(100, .15);
-                this->_robot.spin_degrees(LEFT, 100, 30);
+                this->_robot.backward_meters(40, .15);
+                this->_robot.spin_degrees(LEFT, 100, 60);
                 this->_state = GO;
             default:
-                this->_robot.stop();
+                this->_state = GO;
         }
     }
 
@@ -66,17 +64,27 @@ namespace rolley
     {
         switch(this->_state) {
             case START:
+                Serial.println("START");
                 this->start();
+                break;
             case GO:
+                Serial.println("GO");
                 this->forward();
+                break;
             case BUMP:
+                Serial.println("BUMP");
                 this->bump();
+                break;
             case STOP:
+                Serial.println("STOP");
                 this->_robot.stop();
+                break;
             default:
+                Serial.println("DEFAULT");
                 this->_robot.stop();
+                break;
         }
-        //this->detect();
+        this->detect();
     }
 
 }

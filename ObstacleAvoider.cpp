@@ -41,22 +41,30 @@ namespace rolley
 
     void ObstacleAvoider::forward()
     {
-        this->_robot.forward(20);
+        this->_robot.forward(40);
     }
 
     void ObstacleAvoider::bump()
     {
         switch(this->_context.obstacle_direction) {
             case LEFT:
-                this->_robot.backward_meters(40, .15);
-                this->_robot.spin_degrees(RIGHT, 100, 60);
+                this->_robot.backward_meters_now(40, .15);
+                this->_robot.spin_degrees_now(LEFT, 40, 60);
                 this->_state = GO;
+				break;
             case RIGHT:
-                this->_robot.backward_meters(40, .15);
-                this->_robot.spin_degrees(LEFT, 100, 60);
+                this->_robot.backward_meters_now(40, .15);
+                this->_robot.spin_degrees_now(RIGHT, 40, 60);
                 this->_state = GO;
+				break;
+            case FORWARD:
+                this->_robot.backward_meters_now(40, .15);
+                this->_robot.spin_degrees_now(LEFT, 40, 60);
+                this->_state = GO;
+				break;
             default:
                 this->_state = GO;
+				break;
         }
     }
 

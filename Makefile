@@ -6,7 +6,7 @@
 
 ### PROJECT_DIR
 ### This is the path to where you have created/cloned your project
-PROJECT_DIR       = /Users/cmalek/src/workspace/ObstacleAvoider
+PROJECT_DIR       = /Users/cmalek/src/robotics/libraries/ObstacleAvoider
 
 ### ARDMK_DIR
 ### Path to the Arduino-Makefile directory.
@@ -51,7 +51,7 @@ CXXFLAGS_STD      = -std=gnu++11
 
 ### CXXFLAGS
 ### Flags you might want to set for debugging purpose. Comment to stop.
-CXXFLAGS         += -pedantic -Wall -Wextra
+CXXFLAGS         += -pedantic -Wall -Wextra -DARDUINO_ARCH_AVR
 
 ### MONITOR_PORT
 ### The port your board is connected to. Using an '*' tries all the ports and finds the right one.

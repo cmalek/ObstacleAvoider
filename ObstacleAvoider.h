@@ -12,10 +12,9 @@ namespace rolley
         START,
         GO,
         BUMP,
-        SONAR,
-        CLIFF,
-        AVOID,
-        STOP
+        STOP,
+        SPIN,
+        BACKUP
     };
 
     struct context_t {
@@ -32,11 +31,14 @@ namespace rolley
             void run();
 
         private:
+            void transition(states_t);
             void detect();
             void detect_bump();
             void start();
             void forward();
             void bump();
+            void backup();
+            void spin();
             states_t _state;
             context_t _context;
             rolley::Rolley _robot;

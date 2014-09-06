@@ -17,7 +17,7 @@ ARDMK_DIR         = /Users/cmalek/src/Arduino-Makefile
 ### On OS X:
 ARDUINO_DIR       	= /Applications/Arduino.app/Contents/Resources/Java
 ARDUINO_SKETCHBOOK 	= /Users/cmalek/src/robotics
-ARDUINO_LIBS		= Bounce2 NewPing Rolley Servo
+ARDUINO_LIBS		= Bounce2 NewPing Rolley Servo LSM303 Wire
 
 ### USER_LIB_PATH
 ### Path to where the your project's libraries are stored.

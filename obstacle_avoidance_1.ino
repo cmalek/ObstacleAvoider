@@ -2,6 +2,8 @@
 #include <Servo.h>
 #include <Bounce2.h>
 #include <Rolley.h>
+#include <LSM303.h>
+#include <Wire.h>
 #include <ObstacleAvoider.h>
 
 Servo servo;

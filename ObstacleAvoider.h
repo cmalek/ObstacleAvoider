@@ -1,6 +1,12 @@
 #ifndef ObstacleAvoider_h
 #define ObstacleAvoider_h
 
+#ifdef DEBUG
+#define debug(msg) Serial.println(msg)
+#else
+#define debug(msg)
+#endif
+
 #include <Servo.h>
 #include <NewPing.h>
 #include <Rolley.h>

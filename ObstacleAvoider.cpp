@@ -15,20 +15,20 @@ namespace rolley
     void ObstacleAvoider::detect_bump()
     {
        if (this->_robot.is_bump()) {
-           Serial.print("  detect:IS BUMP:");
            this->transition(BUMP);
            if (this->_robot.is_left_bump()) {
-               Serial.println("LEFT");
+               debug("detect:IS BUMP:LEFT");
                this->_context.obstacle_direction = LEFT;
            } else if (this->_robot.is_front_bump()) {
-               Serial.println("FORWARD");
+               debug("detect:IS BUMP:FORWARD");
                this->_context.obstacle_direction = FORWARD;
            } else if (this->_robot.is_right_bump()) {
-               Serial.println("RIGHT");
+               debug("detect:IS BUMP:RIGHT");
                this->_context.obstacle_direction = RIGHT;
            }
        }
     }
+
 
     void ObstacleAvoider::detect()
     {
@@ -52,24 +52,25 @@ namespace rolley
         this->_state = state;
         switch (this->_state) {
             case START:
-                Serial.println("state:START");
+                debug("state:START");
                 break;
             case GO:
-                Serial.println("state:GO");
+                debug("state:GO");
                 break;
             case BUMP:
+                debug("state:BUMP");
                 break;
             case BACKUP:
-                Serial.println("state:BACKUP");
+                debug("state:BACKUP");
                 break;
             case SPIN:
-                Serial.println("state:SPIN");
+                debug("state:SPIN");
                 break;
             case STOP:
-                Serial.println("state:STOP");
+                debug("state:STOP");
                 break;
             default:
-                Serial.println("state:UNKNOWN");
+                debug("state:UNKNOWN");
                 break;
         }
     }
@@ -77,24 +78,23 @@ namespace rolley
     void ObstacleAvoider::backup()
     {
         if (this->_robot.is_done_moving()) {
-            Serial.print("  backup:DONE MOVING");
-            Serial.println(this->_context.obstacle_direction);
+            debug("  backup:DONE MOVING");
             this->transition(SPIN);
             switch(this->_context.obstacle_direction) {
                 case LEFT:
-                    Serial.println("    backup:SPIN RIGHT 45");
+                    debug("    backup:SPIN RIGHT 45");
                     this->_robot.spin_degrees(RIGHT, 40, 45);
                     break;
                 case RIGHT:
-                    Serial.println("    backup:SPIN LEFT 45");
+                    debug("    backup:SPIN LEFT 45");
                     this->_robot.spin_degrees(LEFT, 40, 45);
                     break;
                 case FORWARD:
-                    Serial.println("    backup:SPIN LEFT 180");
+                    debug("    backup:SPIN LEFT 180");
                     this->_robot.spin_degrees(LEFT, 40, 180);
                     break;
                 default:
-                    Serial.println("    backup:DEFAULT:GO");
+                    debug("    backup:DEFAULT:GO");
                     this->transition(GO);
                     break;
              }
@@ -104,7 +104,7 @@ namespace rolley
     void ObstacleAvoider::spin()
     {
         if (this->_robot.is_done_spinning()) {
-            Serial.println("  spin:DONE SPINNING");
+            debug("  spin:DONE SPINNING");
             this->_context.obstacle_direction = NONE;
             this->transition(GO);
         }
@@ -113,7 +113,7 @@ namespace rolley
     void ObstacleAvoider::bump()
     {
         if (this->_context.obstacle_direction != NONE) {
-            Serial.println("  bump:BACKUP");
+            debug("  bump:BACKUP");
             this->_robot.backward_meters(100, .30);
             this->transition(BACKUP);
         } else {

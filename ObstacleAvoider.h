@@ -1,15 +1,20 @@
 #ifndef ObstacleAvoider_h
 #define ObstacleAvoider_h
 
+#define DEBUG
 #ifdef DEBUG
 #define debug(msg) Serial.println(msg)
 #else
-#define debug(msg)
+#define debug(msg) (void)0
 #endif
 
 #include <Servo.h>
 #include <NewPing.h>
 #include <Rolley.h>
+
+#define WALL_DISTANCE 20
+#define SPIN_SPEED 60
+#define FORWARD_SPEED 60
 
 namespace rolley 
 {
@@ -17,7 +22,6 @@ namespace rolley
     enum states_t {
         START,
         GO,
-        BUMP,
         STOP,
         SPIN,
         BACKUP
@@ -27,7 +31,6 @@ namespace rolley
         directions_t obstacle_direction;
         directions_t desired_direction;
     };
-
 
     class ObstacleAvoider 
     {
@@ -39,14 +42,14 @@ namespace rolley
         private:
             void transition(states_t);
             void detect();
-            void detect_bump();
-            void start();
-            void forward();
-            void bump();
             void backup();
             void spin();
+            void reset_context();
+            
+
             states_t _state;
             context_t _context;
+
             rolley::Rolley _robot;
     };
 }

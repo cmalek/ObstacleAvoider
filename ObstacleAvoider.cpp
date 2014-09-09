@@ -131,7 +131,7 @@ namespace rolley
     void ObstacleAvoider::backup()
     {
         if (this->_robot.is_done_moving()) {
-            debug("  backup:DONE MOVING");
+            Serial.println("  backup:DONE MOVING");
             this->transition(SPIN);
         }
     }
